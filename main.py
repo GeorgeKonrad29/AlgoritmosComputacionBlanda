@@ -8,6 +8,8 @@ Comparación de tres algoritmos para resolver el TSP (Traveling Salesman Problem
 import numpy as np
 import matplotlib.pyplot as plt
 from time import time
+from algoritmo_genetico import algoritmo_genetico_clasico
+from algoritmo_colonia_hormigas import algoritmo_colonia_hormigas
 
 
 def leer_archivo_tsp(nombre_archivo):
@@ -153,18 +155,23 @@ def ejecutar_ga_clasico(coordenadas, matriz_distancias, params):
     print("\n" + "="*70)
     print("EJECUTANDO ALGORITMO GENÉTICO CLÁSICO (GA)")
     print("="*70)
+    print(f"Población: {params.poblacion}, Generaciones: {params.generaciones}")
+    print(f"Tasa de mutación: {params.tasa_mutacion}, Tasa de crossover: {params.tasa_crossover}")
+    print(f"Elitismo: {params.elitismo}")
     
     tiempo_inicio = time()
     
-    # TODO: Implementar GA clásico
-    # La implementación se agregará en el siguiente prompt
+    # Ejecutar algoritmo genético
+    mejor_ruta, mejor_distancia, historial_fitness = algoritmo_genetico_clasico(
+        matriz_distancias, params
+    )
     
     tiempo_ejecucion = time() - tiempo_inicio
     
+    print(f"\nMejor distancia encontrada: {mejor_distancia:.2f}")
     print(f"Tiempo de ejecución: {tiempo_ejecucion:.2f} segundos")
     
-    # Valores de retorno temporales
-    return None, float('inf'), [], tiempo_ejecucion
+    return mejor_ruta, mejor_distancia, historial_fitness, tiempo_ejecucion
 
 
 def ejecutar_aco(coordenadas, matriz_distancias, params):
@@ -180,17 +187,23 @@ def ejecutar_aco(coordenadas, matriz_distancias, params):
     print("\n" + "="*70)
     print("EJECUTANDO OPTIMIZACIÓN DE COLONIA DE HORMIGAS (ACO)")
     print("="*70)
+    print(f"Hormigas: {params.num_hormigas}, Iteraciones: {params.iteraciones}")
+    print(f"Alpha: {params.alpha}, Beta: {params.beta}")
+    print(f"Rho: {params.rho}, Q: {params.q}")
     
     tiempo_inicio = time()
     
-    # TODO: Implementar ACO
-    # La implementación se agregará en el siguiente 
+    # Ejecutar algoritmo de colonia de hormigas
+    mejor_ruta, mejor_distancia, historial_fitness = algoritmo_colonia_hormigas(
+        matriz_distancias, params
+    )
     
     tiempo_ejecucion = time() - tiempo_inicio
     
+    print(f"\nMejor distancia encontrada: {mejor_distancia:.2f}")
     print(f"Tiempo de ejecución: {tiempo_ejecucion:.2f} segundos")
     
-    # Valores de retorno temporales
+    return mejor_ruta, mejor_distancia, historial_fitness, tiempo_ejecucion
     return None, float('inf'), [], tiempo_ejecucion
 
 
