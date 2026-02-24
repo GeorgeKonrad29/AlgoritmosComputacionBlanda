@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from time import time
 from algoritmo_genetico import algoritmo_genetico_clasico
 from algoritmo_colonia_hormigas import algoritmo_colonia_hormigas
+from algoritmo_chu_beasly import chu_beasley
 
 
 def leer_archivo_tsp(nombre_archivo):
@@ -235,6 +236,24 @@ def ejecutar_cbga(coordenadas, matriz_distancias, params):
     return None, float('inf'), [], tiempo_ejecucion
 
 
+def ejecutar_chu_beasley(coordenadas, matriz_distancias, restarts=20, seed=None):
+    """
+    Ejecuta el algoritmo Chu-Beasley implementado en `algoritmo_chu_beasly.py`.
+
+    `coordenadas` se pasa como numpy array; la función convierte a lista de tuplas.
+    """
+    print("\n" + "="*70)
+    print("EJECUTANDO ALGORITMO CHU-BEASLEY (heurística NN + 2-opt)")
+    print("="*70)
+    coords_list = [tuple(x) for x in coordenadas]
+    from time import time
+    t0 = time()
+    tour, distancia = chu_beasley(coords_list, restarts=restarts, seed=seed)
+    tiempo = time() - t0
+    print(f"Mejor distancia (Chu-Beasley): {distancia:.2f} | Tiempo: {tiempo:.2f}s")
+    return tour, distancia, [], tiempo
+
+
 def comparar_resultados(resultados):
     """
     Compara y muestra los resultados de los tres algoritmos.
@@ -294,6 +313,7 @@ def main():
         
         resultados[archivo]['GA'] = ejecutar_ga_clasico(coordenadas, matriz_distancias, params_ga)
         resultados[archivo]['ACO'] = ejecutar_aco(coordenadas, matriz_distancias, params_aco)
+        resultados[archivo]['ChuBeasley'] = ejecutar_chu_beasley(coordenadas, matriz_distancias, restarts=20, seed=42)
         resultados[archivo]['CBGA'] = ejecutar_cbga(coordenadas, matriz_distancias, params_cbga)
     
     # Mostrar comparación final
