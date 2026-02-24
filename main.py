@@ -71,9 +71,7 @@ def calcular_matriz_distancias(coordenadas):
 # ============================================================================
 
 class ParametrosGA:
-    """
-    Parámetros para el Algoritmo Genético Clásico (GA).
-    """
+
     def __init__(self):
         # Tamaño de la población: Número de individuos (rutas) en cada generación
         self.poblacion = 100
@@ -92,9 +90,7 @@ class ParametrosGA:
 
 
 class ParametrosACO:
-    """
-    Parámetros para Optimización de Colonia de Hormigas (ACO).
-    """
+
     def __init__(self):
         # Número de hormigas: Cantidad de hormigas que construyen soluciones en cada iteración
         self.num_hormigas = 50
@@ -119,9 +115,7 @@ class ParametrosACO:
 
 
 class ParametrosCBGA:
-    """
-    Parámetros para el Algoritmo Genético Celular de Bhu-Beasley (CBGA).
-    """
+
     def __init__(self):
         # Tamaño de la población: Número total de individuos en la cuadrícula celular
         self.poblacion = 100
@@ -149,15 +143,12 @@ class ParametrosCBGA:
 
 def ejecutar_ga_clasico(coordenadas, matriz_distancias, params):
     """
-    Ejecuta el Algoritmo Genético Clásico para resolver el TSP.
     
     Args:
         coordenadas: Coordenadas de las ciudades
         matriz_distancias: Matriz de distancias entre ciudades
         params: Instancia de ParametrosGA con la configuración del algoritmo
     
-    Returns:
-        Tupla (mejor_ruta, mejor_distancia, historial_fitness, tiempo_ejecucion)
     """
     print("\n" + "="*70)
     print("EJECUTANDO ALGORITMO GENÉTICO CLÁSICO (GA)")
@@ -178,15 +169,13 @@ def ejecutar_ga_clasico(coordenadas, matriz_distancias, params):
 
 def ejecutar_aco(coordenadas, matriz_distancias, params):
     """
-    Ejecuta el algoritmo de Optimización de Colonia de Hormigas para resolver el TSP.
     
     Args:
         coordenadas: Coordenadas de las ciudades
         matriz_distancias: Matriz de distancias entre ciudades
         params: Instancia de ParametrosACO con la configuración del algoritmo
     
-    Returns:
-        Tupla (mejor_ruta, mejor_distancia, historial_fitness, tiempo_ejecucion)
+
     """
     print("\n" + "="*70)
     print("EJECUTANDO OPTIMIZACIÓN DE COLONIA DE HORMIGAS (ACO)")
@@ -195,7 +184,7 @@ def ejecutar_aco(coordenadas, matriz_distancias, params):
     tiempo_inicio = time()
     
     # TODO: Implementar ACO
-    # La implementación se agregará en el siguiente prompt
+    # La implementación se agregará en el siguiente 
     
     tiempo_ejecucion = time() - tiempo_inicio
     
@@ -207,15 +196,14 @@ def ejecutar_aco(coordenadas, matriz_distancias, params):
 
 def ejecutar_cbga(coordenadas, matriz_distancias, params):
     """
-    Ejecuta el Algoritmo Genético Celular de Bhu-Beasley para resolver el TSP.
+
     
     Args:
         coordenadas: Coordenadas de las ciudades
         matriz_distancias: Matriz de distancias entre ciudades
         params: Instancia de ParametrosCBGA con la configuración del algoritmo
     
-    Returns:
-        Tupla (mejor_ruta, mejor_distancia, historial_fitness, tiempo_ejecucion)
+
     """
     print("\n" + "="*70)
     print("EJECUTANDO ALGORITMO GENÉTICO CELULAR BHU-BEASLEY (CBGA)")
@@ -224,7 +212,7 @@ def ejecutar_cbga(coordenadas, matriz_distancias, params):
     tiempo_inicio = time()
     
     # TODO: Implementar CBGA
-    # La implementación se agregará en el siguiente prompt
+    # La implementación se agregará en el siguiente 
     
     tiempo_ejecucion = time() - tiempo_inicio
     
@@ -262,19 +250,17 @@ def main():
     print("COMPARACIÓN DE ALGORITMOS PARA EL TSP")
     print("="*70)
     
-    # Inicializar parámetros de cada algoritmo
+    # Inicializar
     params_ga = ParametrosGA()
     params_aco = ParametrosACO()
     params_cbga = ParametrosCBGA()
     
-    # Archivos TSP a procesar
     archivos_tsp = [
         'berlin52.tsp',
         'eil51.tsp',
         'st70.tsp'
     ]
     
-    # Diccionario para almacenar todos los resultados
     resultados = {}
     
     # Procesar cada archivo TSP
@@ -283,7 +269,7 @@ def main():
         print(f"PROCESANDO: {archivo}")
         print(f"{'='*70}")
         
-        # Leer coordenadas del archivo
+
         coordenadas = leer_archivo_tsp(archivo)
         print(f"Número de ciudades: {len(coordenadas)}")
         
@@ -293,13 +279,8 @@ def main():
         # Ejecutar cada algoritmo
         resultados[archivo] = {}
         
-        # 1. Algoritmo Genético Clásico
         resultados[archivo]['GA'] = ejecutar_ga_clasico(coordenadas, matriz_distancias, params_ga)
-        
-        # 2. Optimización de Colonia de Hormigas
         resultados[archivo]['ACO'] = ejecutar_aco(coordenadas, matriz_distancias, params_aco)
-        
-        # 3. Algoritmo Genético Celular Bhu-Beasley
         resultados[archivo]['CBGA'] = ejecutar_cbga(coordenadas, matriz_distancias, params_cbga)
     
     # Mostrar comparación final
